@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\VotingService;
 use App\Voting;
 use Illuminate\Http\Request;
 
 class VotingController extends Controller
 {
+    /**
+     * @var VotingService
+     */
+    private $votingService;
+
+    public function __construct(VotingService $votingService)
+    {
+        $this->votingService = $votingService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +46,15 @@ class VotingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->votingService->validator($request->all())->validate();
+
+        $voting = $this->votingService->make(auth()->user(), $request->all(), $request->input('options'));
+
+        if (!$voting->id) {
+            abort(500);
+        }
+
+        return redirect()->route('voting.edit', ['voting' => $voting->id]);
     }
 
     /**

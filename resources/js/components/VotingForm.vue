@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <div :key="option.id" class="voting-option" v-for="(option, i) in options">
-                            {{ i + 1 }}<input class="" name="options[]" type="text" v-model="option.title">
+                            {{ i + 1 }}<input class="" name="options[][title]" type="text" v-model="option.title">
                             <button @click="removeOption(i)" class="btn btn-danger" type="button">Remove</button>
                         </div>
                         <button @click="addOption" class="btn btn-dark" type="button">Add option</button>

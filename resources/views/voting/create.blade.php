@@ -8,6 +8,10 @@
                     <div class="card-header">Create new voting</div>
 
                     <div class="card-body">
+                        @if($errors->any())
+                            <div class="alert alert-danger">{{ $errors->first() }}</div>
+                        @endif
+
                         <voting-form csrf="{{ csrf_token() }}" action="{{ route('voting.store') }}"></voting-form>
                     </div>
                 </div>
