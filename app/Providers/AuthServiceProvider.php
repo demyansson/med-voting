@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('vote-for-option', function ($user, $voting) {
+            $votingService = resolve('App\Services\VotingService');
+            return !$votingService->voted($voting, $user);
+        });
     }
 }

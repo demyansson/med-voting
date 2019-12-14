@@ -22,9 +22,25 @@
 
                         <div class="voting_options">
                             @foreach($votingResult['options'] as $option)
+
+                                @if($votingResult['hidden'])
+                                    <form method="post" id="option_{{ $option['id']}}"
+                                          action="{{ route('vote.store') }}">
+                                        @csrf
+                                        <input name="voting_option_id" value="{{ $option['id'] }}" type="hidden">
+                                    </form>
+                                @endif
+
                                 <div class="option_wrapper">
                                     <div
-                                        class="option @if(!$votingResult['hidden']) inactive @if($votedOption->id == $option['id']) selected @endif @endif">
+                                        class="option @if(!$votingResult['hidden']) inactive @if($votedOption->id == $option['id']) selected @endif @endif"
+
+                                        @if($votingResult['hidden'])
+
+                                        onclick="
+                                            form = document.getElementById('option_{{ $option['id'] }}');
+                                            form.submit();
+                                            " @endif>
 
                                         <div class="option_title">
                                             {{ $option['title'] }}
@@ -33,7 +49,6 @@
                                         @if(!$votingResult['hidden'])
                                             <div class="option_result">
                                                 {{"{$option['votedPercent']}%({$option['voted']})" }}
-
                                             </div>
                                         @endif
 

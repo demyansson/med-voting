@@ -123,6 +123,18 @@ class VotingService
     }
 
     /**
+     * Check if user voted
+     *
+     * @param Voting $voting
+     * @param $user
+     * @return bool
+     */
+    public function voted(Voting $voting, $user)
+    {
+        return $voting->votes()->where('user_id', $user->id)->exists();
+    }
+
+    /**
      * Get voting query builder with all relations
      *
      * @return Builder

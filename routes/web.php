@@ -23,4 +23,7 @@ Route::group([
     'middleware' => ['auth'],
 ], function () {
     Route::resource('voting', 'VotingController');
+    Route::resource('vote', 'VoteController')->only([
+        'store'
+    ]);
 });
