@@ -24,7 +24,7 @@ class VotingController extends Controller
      */
     public function create()
     {
-        //
+        return view('voting.create');
     }
 
     /**
