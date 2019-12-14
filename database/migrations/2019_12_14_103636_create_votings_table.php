@@ -19,7 +19,7 @@ class CreateVotingsTable extends Migration
             $table->string('title', 255);
             $table->text('description')->nullable();
 
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
