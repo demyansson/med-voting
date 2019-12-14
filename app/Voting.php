@@ -17,4 +17,14 @@ class Voting extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get options that belongs to the voting
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function options()
+    {
+        return $this->hasMany('App\VotingOption');
+    }
 }
