@@ -1,8 +1,60 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.voting {
+
+    background: $voting-bg;
+
+    .voting_info {
+
+        display: flex;
+
+        .voting_votes {
+            flex-grow: 1;
+            text-align: right;
+            font-weight: bold;
+        }
+    }
+
+    .voting_options {
+
+        .option_wrapper {
+
+            .option {
+                display: flex;
+                width: 100%;
+                background: $cyan;
+                padding: 5px;
+                margin-bottom: 10px;
+                text-align: left;
+                border: 1px solid $blue;
+                border-bottom-width: 3px;
+                border-right-width: 3px;
+                border-radius: 3px;
+                transition: border-left-width $duration, border-right-width $duration, border-bottom-width $duration, border-top-width $duration;
+                cursor: pointer;
+
+                &.selected {
+                    background: $green !important;
+                    border-color: #249a27;
+                }
+
+                &:hover:not(.inactive) {
+                    border-top-width: 3px;
+                    border-left-width: 3px;
+                    border-right-width: 1px;
+                    border-bottom-width: 1px;
+                }
+
+                .option_result {
+                    flex-grow: 1;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

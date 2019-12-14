@@ -15,4 +15,14 @@ class Vote extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the option that owns the vote
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function option()
+    {
+        return $this->belongsTo('App\VotingOption', 'voting_option_id');
+    }
 }

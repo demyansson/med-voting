@@ -27,4 +27,14 @@ class Voting extends Model
     {
         return $this->hasMany('App\VotingOption');
     }
+
+    /**
+     * Get all votes for the voting
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function votes()
+    {
+        return $this->hasManyThrough('App\Vote', 'App\VotingOption');
+    }
 }

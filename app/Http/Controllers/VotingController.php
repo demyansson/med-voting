@@ -63,9 +63,15 @@ class VotingController extends Controller
      * @param \App\Voting $voting
      * @return \Illuminate\Http\Response
      */
-    public function show(Voting $voting)
+    public function show($id)
     {
-        //
+        $voting = $this->votingService->find($id);
+
+        $votedOption = $this->votingService->getUserVotedVotingOption($voting, auth()->user());
+
+        $votingResult = $this->votingService->getVotingResult($voting, !$votedOption);
+
+        return view('voting.show', compact('voting', 'votedOption', 'votingResult'));
     }
 
     /**
@@ -76,7 +82,7 @@ class VotingController extends Controller
      */
     public function edit($id)
     {
-        $voting = Voting::with('options')->find($id);
+        $voting = Voting::with('options')->findOrFail($id);
 
         return view('voting.edit', compact('voting'));
     }
