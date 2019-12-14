@@ -74,9 +74,11 @@ class VotingController extends Controller
      * @param \App\Voting $voting
      * @return \Illuminate\Http\Response
      */
-    public function edit(Voting $voting)
+    public function edit($id)
     {
-        //
+        $voting = Voting::with('options')->find($id);
+
+        return view('voting.edit', compact('voting'));
     }
 
     /**

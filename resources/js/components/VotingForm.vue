@@ -8,12 +8,13 @@
 
                     <div class="form-group">
                         <label for="votingFormTitle">Title</label>
-                        <input class="form-control" id="votingFormTitle" name="title" type="text">
+                        <input class="form-control" id="votingFormTitle" name="title" type="text" v-model="title">
                     </div>
 
                     <div class="form-group">
                         <label for="votingFormDescription">Description</label>
                         <textarea class="form-control" id="votingFormDescription" name="description"
+                                  v-model="description"
                                   rows="3"></textarea>
                     </div>
 
@@ -39,6 +40,18 @@
 <script>
     export default {
         props: {
+            title: {
+                type: String,
+                default: '',
+            },
+            description: {
+                type: String,
+                default: '',
+            },
+            optionsJson: {
+                type: String,
+                default: '',
+            },
             csrf: {
                 type: String
             },
@@ -70,7 +83,11 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            let options = JSON.parse(this.optionsJson);
+
+            if (Array.isArray(options)) {
+                this.options = options;
+            }
         }
     }
 </script>
