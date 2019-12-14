@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,5 +44,15 @@ class User extends Authenticatable
     public function votings()
     {
         return $this->hasMany('App\Voting');
+    }
+
+    /**
+     * Get votes that belong to the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function votes()
+    {
+        return $this->hasMany('App\Vote');
     }
 }
