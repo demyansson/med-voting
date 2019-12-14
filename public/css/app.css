@@ -11366,6 +11366,7 @@ a.text-dark:focus {
 }
 
 .voting .voting_info .voting_votes {
+    min-width: 100px;
   -webkit-box-flex: 1;
           flex-grow: 1;
   text-align: right;

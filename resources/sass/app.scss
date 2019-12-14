@@ -14,6 +14,7 @@
         display: flex;
 
         .voting_votes {
+            min-width: 100px;
             flex-grow: 1;
             text-align: right;
             font-weight: bold;
