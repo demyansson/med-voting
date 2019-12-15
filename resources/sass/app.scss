@@ -77,7 +77,8 @@ a:hover {
     justify-content: center;
 
     .voting {
-        width: 300px;
+        flex-grow: 1;
+        min-width: 250px;
         margin: 10px;
         padding: 10px;
         border-radius: 3px;
@@ -89,4 +90,24 @@ a:hover {
         }
 
     }
+}
+
+.voting-list.top {
+    flex-direction: column;
+
+    .voting {
+        margin: 0 0 10px;
+        min-width: 0;
+
+        &:hover {
+            transform: scale(1);
+        }
+
+        .option {
+        }
+    }
+}
+
+.content {
+    margin-top: 10px;
 }

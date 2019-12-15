@@ -165,6 +165,25 @@ class VotingService
     }
 
     /**
+     * Get most voted voting
+     *
+     * @param int $limit
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getTop($limit = 3)
+    {
+        $voting = $this->votingWithVotesQueryBuilder();
+
+        $voting
+            ->orderBy('votes_count', 'desc')
+            ->limit($limit);
+
+
+        return $voting->get();
+    }
+
+
+    /**
      * Get voting query builder with all relations
      *
      * @return Builder
