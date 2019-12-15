@@ -9,6 +9,13 @@ class Voting extends Model
     protected $fillable = ['title', 'description'];
 
     /**
+     * @var array
+     *
+     * Voting result
+     */
+    private $result;
+
+    /**
      * Get the user that owns the voting
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -36,5 +43,25 @@ class Voting extends Model
     public function votes()
     {
         return $this->hasManyThrough('App\Vote', 'App\VotingOption');
+    }
+
+    /**
+     * Get result
+     *
+     * @return array
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * Set result
+     *
+     * @param array $result
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
     }
 }

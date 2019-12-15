@@ -23,9 +23,11 @@ class VotingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $votings = $this->votingService->getPaginated(collect($request->all()));
+
+        return view('voting.index', compact('votings'));
     }
 
     /**

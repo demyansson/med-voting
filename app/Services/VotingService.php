@@ -9,6 +9,7 @@ use App\Vote;
 use App\Voting;
 use App\VotingOption;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
 class VotingService
@@ -109,7 +110,7 @@ class VotingService
                 'title' => $option->title,
                 'description' => $option->description,
                 'voted' => $hide ? null : $option->votes_count,
-                'votedPercent' => $hide ? null : round($option->votes_count / ($totalVoted / 100), 2),
+                'votedPercent' => $hide || !$totalVoted ? null : round($option->votes_count / ($totalVoted / 100), 2),
             ];
         }
 
@@ -135,6 +136,35 @@ class VotingService
     }
 
     /**
+     * Get filtered and paginated votings
+     *
+     * @param Collection $filters
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getPaginated(Collection $filters = null)
+    {
+        $votings = $this->votingWithVotesQueryBuilder();
+
+        if ($filters === null) {
+            $filters = collect();
+        }
+
+        if ($filters->has('user')) {
+            $votings->where('user_id', $filters->get('user'));
+        }
+
+
+        $votingsPaginated = $votings->paginate(10);
+
+        foreach ($votingsPaginated as $voting) {
+
+            $voting->setResult($this->getVotingResult($voting, true));
+        }
+
+        return $votingsPaginated;
+    }
+
+    /**
      * Get voting query builder with all relations
      *
      * @return Builder
@@ -143,6 +173,17 @@ class VotingService
     {
         return Voting::with(['options' => function ($q) {
             $q->withCount('votes');
-        }, 'votes'])->withCount('votes');
+        }])->withCount('votes');
     }
+
+    /**
+     * Get query builder with options and votes count
+     *
+     * @return Builder
+     */
+    private function votingWithVotesQueryBuilder()
+    {
+        return Voting::with('options')->withCount('votes');
+    }
+
 }
